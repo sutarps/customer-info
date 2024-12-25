@@ -46,8 +46,8 @@ jobs:
         run: mvn -B package --file pom.xml
 
       - name: Build Docker image
-#        run: docker build -t ghcr.io/${{ github.repository }}/customer-info:latest .
-        run: docker build . --file Dockerfile --tag $IMAGE_NAME --label "runnumber=${GITHUB_RUN_ID}"
+        run: docker build -t ghcr.io/${{github.repository_owner}}/customer-info:latest .
+#        run: docker build . --file Dockerfile --tag $IMAGE_NAME --label "runnumber=${GITHUB_RUN_ID}"
 
       - name: Log in to registry
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
