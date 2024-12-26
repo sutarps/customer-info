@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: customer-info-service
+  labels:
+    app: customer-info
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: customer-info
+  template:
+    metadata:
+      labels:
+        app: customer-info
+    spec:
+      containers:
+        - name: customer-info-container
+          image: ghcr.io/sutarps/customer-info:latest
+          ports:
+            - containerPort: 8081
+          env:
+            - name: ENV_VAR_NAME
+              value: "value"
+          resources:
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+            requests:
+              memory: "256Mi"
+              cpu: "250m"
+          livelinessProbe:
+            httpGet:
+              path: /health
+              port: 8081
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /readiness
+              port: 8081
+            initialDelaySeconds: 30
+            periodSeconds: 10
+      imagePullSecrets:
+        - name: GHCR_SECRET
+        - value:  secrets.GITHUB_TOKEN
