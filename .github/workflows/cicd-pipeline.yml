@@ -64,6 +64,7 @@ jobs:
   deploy:
     name: Deploy to Kubernetes
     runs-on: self-hosted
+    needs: build_and_push_docker
     steps:
       - name: Checkout image
         uses: actions/checkout@v4
