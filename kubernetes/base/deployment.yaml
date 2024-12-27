@@ -29,7 +29,7 @@ spec:
             requests:
               memory: "256Mi"
               cpu: "250m"
-          livelinessProbe:
+          livenessProbe:
             httpGet:
               path: /health
               port: 8081
@@ -43,4 +43,4 @@ spec:
             periodSeconds: 10
       imagePullSecrets:
         - name: GHCR_SECRET
-        - value:  secrets.GITHUB_TOKEN
+          value:  secrets.GITHUB_TOKEN

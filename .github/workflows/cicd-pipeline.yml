@@ -74,3 +74,6 @@ jobs:
         run: kubectl config use-context kubernetes-admin@kubernetes
       - name: Deploy to cluster
         run: kubectl apply -f kubernetes/base/deployment.yaml -n dev
+      - name: Path the deployment yaml
+        run: |
+          | kubectl patch deployment my-app-deployment \ -p '{"spec": {"template": {"spec": {"imagePullSecrets": [{"name": "GHCR_SECRET", "value": ${{secrets.GITHUB_TOKEN}}}]}}}}'
