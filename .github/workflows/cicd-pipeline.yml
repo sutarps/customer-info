@@ -59,3 +59,18 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           IMAGE_NAME: customer-info
+  deploy:
+    name: Deploy to Kubernetes
+    runs-on: self-hosted
+    steps:
+      - name: Checkout image
+        uses: actions/checkout@v4
+      - name: Create kubeconfig
+        run: |
+          mkdir ${HOME}/.kube
+          echo ${{ secrets.KUBE_CONFIG }} | base64 --decode > ${HOME}/.kube/config
+          cat ${HOME}/.kube/config
+      - name: Use context
+        run: kubectl config use-context kubernetes-admin@kubernetes
+      - name: Deploy to cluster
+        run: kubectl apply -f kubernetes/**/*.+(yaml|yml)' -n dev
