@@ -68,9 +68,13 @@ jobs:
     steps:
       - name: Create kubeconfig
         run: |
-          mkdir ${HOME}/.kube
+          if [ ! -d "${HOME}/.kube" ]; then 
+            mkdir -p ${HOME}/.kube 
+          fi
           echo ${{secrets.KUBE_CONFIG}} | base64 --decode > ${HOME}/.kube/config
           cat ${HOME}/.kube/config
+      - name: Log in to registry
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
       - name: Use context
         run: kubectl config use-context kubernetes-admin@kubernetes
       - name: Deploy to cluster
