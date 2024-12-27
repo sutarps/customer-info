@@ -73,4 +73,4 @@ jobs:
       - name: Use context
         run: kubectl config use-context kubernetes-admin@kubernetes
       - name: Deploy to cluster
-        run: kubectl apply -f kubernetes/**/*.+(yaml|yml)' -n dev
+        run: kubectl apply -f kubernetes/base/deployment.yaml -n dev
