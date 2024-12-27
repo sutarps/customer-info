@@ -68,9 +68,6 @@ jobs:
     steps:
       - name: Create kubeconfig
         run: |
-          if [ ! -d "${HOME}/.kube" ]; then 
-            mkdir -p ${HOME}/.kube 
-          fi
           echo ${{secrets.KUBE_CONFIG}} | base64 --decode > ${HOME}/.kube/config
           cat ${HOME}/.kube/config
       - name: Log in to registry
