@@ -67,9 +67,7 @@ jobs:
     needs: build_and_push_docker
     steps:
       - name: Create kubeconfig
-        run: |
-          echo ${{secrets.KUBE_CONFIG}} | base64 --decode > ${HOME}/.kube/config
-          cat ${HOME}/.kube/config
+        run: cat ${HOME}/.kube/config
       - name: Log in to registry
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
       - name: Use context
