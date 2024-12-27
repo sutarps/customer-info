@@ -41,6 +41,3 @@ spec:
               port: 8081
             initialDelaySeconds: 30
             periodSeconds: 10
-      imagePullSecrets:
-        - name: GHCR_SECRET
-          value:  secrets.GITHUB_TOKEN
