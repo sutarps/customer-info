@@ -5,7 +5,7 @@ metadata:
   labels:
     app: customer-info
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: customer-info
@@ -14,7 +14,6 @@ spec:
       labels:
         app: customer-info
     spec:
-      replicas: 1
       containers:
         - name: customer-info-container
           image: ghcr.io/sutarps/customer-info:latest
@@ -29,7 +28,7 @@ spec:
               cpu: "250m"
           livenessProbe:
             httpGet:
-              path: /health
+              path: /healthz
               port: 8081
             initialDelaySeconds: 30
             periodSeconds: 10
