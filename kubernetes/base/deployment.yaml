@@ -14,14 +14,12 @@ spec:
       labels:
         app: customer-info
     spec:
+      replicas: 1
       containers:
         - name: customer-info-container
           image: ghcr.io/sutarps/customer-info:latest
           ports:
             - containerPort: 8081
-          env:
-            - name: ENV_VAR_NAME
-              value: "value"
           resources:
             limits:
               memory: "512Mi"
