@@ -62,7 +62,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           IMAGE_NAME: customer-info
   deploy:
-    name: Deploy to Kubernetes
+    name: Deploy to dev environment
     runs-on: self-hosted
     needs: build_and_push_docker
     steps:
@@ -73,4 +73,4 @@ jobs:
       - name: Use context
         run: kubectl config use-context kubernetes-admin@kubernetes
       - name: Deploy to cluster
-        run: kubectl apply -f kubernetes/base/deployment.yaml -n dev
+        run: kubectl apply -k kubernetes/overlays/dev/ -n dev

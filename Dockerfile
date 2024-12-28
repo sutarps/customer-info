@@ -8,4 +8,4 @@ COPY ./target/*.jar /app/app.jar
 EXPOSE 8081
 
 # Run the application
-ENTRYPOINT ["java", "-jar", "/app/app.jar"]
+ENTRYPOINT exec java $JAVA_OPTIONS -jar /app/app.jar

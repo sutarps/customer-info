@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: customer-info-service
+spec:
+  replicas: __replicas__
+  template:
+    metadata:
+    spec:
+      containers:
+        -name: customer-info-service
+        resources:
+          requests:
+            cpu: 200m
+            memory: 256Mi
+          limits:
+            cpu: 400m
+            memory: 512Mi
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: dev
+            - name: JAVA_OPTIONS
+              value: -Dspring.profiles.active=test
