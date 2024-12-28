@@ -17,7 +17,7 @@ spec:
         - name: customer-info
           image: ghcr.io/sutarps/customer-info:latest
           ports:
-            - containerPort: 8081
+            - containerPort: 8080
           livenessProbe:
             httpGet:
               path: /actuator/health
