@@ -24,6 +24,6 @@ spec:
               memory: 512Mi
           env:
             - name: SPRING_PROFILES_ACTIVE
-              value: dev
+              value: prod
             - name: JAVA_OPTIONS
-              value: -Dspring.profiles.active=dev
+              value: -Dspring.profiles.active=prod
