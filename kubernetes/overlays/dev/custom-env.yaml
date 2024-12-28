@@ -4,18 +4,24 @@ metadata:
   name: customer-info-service
 spec:
   replicas: __replicas__
+  selector:
+    matchLabels:
+      app: customer-info-service
   template:
     metadata:
+      labels:
+        app: customer-info-service
     spec:
       containers:
-        -name: customer-info-service
-        resources:
-          requests:
-            cpu: 200m
-            memory: 256Mi
-          limits:
-            cpu: 400m
-            memory: 512Mi
+        - name: customer-info-service
+          image: ghcr.io/sutarps/customer-info:latest
+          resources:
+            requests:
+              cpu: 200m
+              memory: 256Mi
+            limits:
+              cpu: 400m
+              memory: 512Mi
           env:
             - name: SPRING_PROFILES_ACTIVE
               value: dev
