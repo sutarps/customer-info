@@ -18,24 +18,24 @@ spec:
           image: ghcr.io/sutarps/customer-info:latest
           ports:
             - containerPort: 8089
-          livenessProbe:
-            httpGet:
-              path: /actuator/health
-              port: 8089
-              scheme: HTTP
-            initialDelaySeconds: 30
-            timeoutSeconds: 5
-            periodSeconds: 10
-            successThreshold: 1
-            failureThreshold: 5
-          readinessProbe:
-            httpGet:
-              path: /readiness
-              port: 8089
-              scheme: HTTP
-            initialDelaySeconds: 30
-            timeoutSeconds: 5
-            periodSeconds: 10
-            successThreshold: 1
-            failureThreshold: 5
-          terminationMessagePath: /dev/termination-log
+#          livenessProbe:
+#            httpGet:
+#              path: /actuator/health
+#              port: 8089
+#              scheme: HTTP
+#            initialDelaySeconds: 30
+#            timeoutSeconds: 5
+#            periodSeconds: 10
+#            successThreshold: 1
+#            failureThreshold: 5
+#          readinessProbe:
+#            httpGet:
+#              path: /readiness
+#              port: 8089
+#              scheme: HTTP
+#            initialDelaySeconds: 30
+#            timeoutSeconds: 5
+#            periodSeconds: 10
+#            successThreshold: 1
+#            failureThreshold: 5
+#          terminationMessagePath: /dev/termination-log
