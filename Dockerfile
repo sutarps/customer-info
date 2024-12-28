@@ -4,7 +4,7 @@ FROM openjdk:21-jdk
 # Copy the JAR file from the target directory to the container
 COPY ./target/*.jar /app/app.jar
 
-# Expose port 8080
+# Expose port 8089
 EXPOSE 8080
 
 # Run the application
