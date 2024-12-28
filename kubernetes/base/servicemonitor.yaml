@@ -4,7 +4,7 @@ metadata:
   name: customer-info-service
 spec:
   endpoints:
-    - intervals: 15s
+    - interval: 15s
       port: metrics
       path: /actuator/prometheus
       scheme: http
