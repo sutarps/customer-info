@@ -13,15 +13,16 @@ spec:
       labels:
         app: customer-info
     spec:
+      hostNetwork: false
       containers:
         - name: customer-info
           image: ghcr.io/sutarps/customer-info:latest
           ports:
-            - containerPort: 8089
+            - containerPort: 8080
           livenessProbe:
             httpGet:
               path: /actuator/health
-              port: 8089
+              port: 8080
               scheme: HTTP
             initialDelaySeconds: 30
             timeoutSeconds: 5
@@ -31,7 +32,7 @@ spec:
           readinessProbe:
             httpGet:
               path: /readiness
-              port: 8089
+              port: 8080
               scheme: HTTP
             initialDelaySeconds: 10
             timeoutSeconds: 5
