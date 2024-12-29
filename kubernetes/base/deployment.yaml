@@ -19,16 +19,6 @@ spec:
           image: ghcr.io/sutarps/customer-info:latest
           ports:
             - containerPort: 8080
-          livenessProbe:
-            httpGet:
-              path: /healthz
-              port: 8080
-              scheme: HTTP
-            initialDelaySeconds: 180
-            timeoutSeconds: 5
-            periodSeconds: 60
-            successThreshold: 1
-            failureThreshold: 5
           terminationMessagePath: /dev/termination-log
       restartPolicy: Always
       terminationGracePeriodSeconds: 30
