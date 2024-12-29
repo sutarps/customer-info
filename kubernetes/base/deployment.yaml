@@ -21,12 +21,12 @@ spec:
             - containerPort: 8080
           livenessProbe:
             httpGet:
-              path: /actuator/health
+              path: /healthz
               port: 8080
               scheme: HTTP
-            initialDelaySeconds: 120
+            initialDelaySeconds: 180
             timeoutSeconds: 5
-            periodSeconds: 15
+            periodSeconds: 60
             successThreshold: 1
             failureThreshold: 5
           terminationMessagePath: /dev/termination-log
