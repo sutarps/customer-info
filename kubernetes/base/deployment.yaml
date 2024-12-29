@@ -40,3 +40,5 @@ spec:
             successThreshold: 1
             failureThreshold: 5
           terminationMessagePath: /dev/termination-log
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
