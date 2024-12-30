@@ -14,11 +14,5 @@ spec:
         app: customer-info
     spec:
       hostNetwork: false
-      containers:
-        - name: customer-info
-          image: ghcr.io/sutarps/customer-info:latest
-          ports:
-            - containerPort: 8080
-          terminationMessagePath: /dev/termination-log
       restartPolicy: Always
       terminationGracePeriodSeconds: 30
