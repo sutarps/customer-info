@@ -41,20 +41,17 @@ jobs:
         with:
           java-version: '21'
           distribution: 'temurin'
-
       - name: Build with Maven
         run: mvn -B package --file pom.xml
 
       - name: Build Docker image
 #        run: docker build -t ghcr.io/${{github.repository_owner}}/customer-info:${GITHUB_RUN_ID} .
         run: docker build -t ghcr.io/${{github.repository_owner}}/customer-info:latest .
-#        run: docker build . --file Dockerfile --tag $IMAGE_NAME --label "runnumber=${GITHUB_RUN_ID}"
 
       - name: Log in to registry
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
       - name: Push Docker image to GHCR
-#        run: docker push ghcr.io/${{ github.repository }}/customer-info:latest
 #        run: docker push ghcr.io/${{github.repository_owner}}/$IMAGE_NAME:${GITHUB_RUN_ID}
         run: docker push ghcr.io/${{github.repository_owner}}/$IMAGE_NAME:latest
 
