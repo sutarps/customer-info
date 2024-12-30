@@ -40,7 +40,7 @@ public class CustomerService {
     public Customer createCustomer(Customer customer){
         customerRepo.findByemail(customer.email()).ifPresent(c ->{
             logger.warn("Customer with email {} already exists",customer.email());
-            throw new CustomerExistException("Email address is already used");
+            throw new CustomerExistException("Email "+customer.email() +" is already used");
         });
         Customer newCustomer = customerRepo.save(customer);
         logger.info("Customer create with id {}",newCustomer.customerId());

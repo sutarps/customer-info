@@ -1,5 +1,6 @@
 package com.travellers.customerinfo.customer_info.exception;
 
+import com.travellers.customerinfo.customer_info.exception.exceptions.CustomerExistException;
 import com.travellers.customerinfo.customer_info.exception.exceptions.NotFoundException;
 import org.openapitools.model.Error;
 import org.springframework.http.HttpStatus;
@@ -15,5 +16,12 @@ public class ExceptionTranslator {
         error.errorCode(404);
         error.errorMessage(e.getMessage());
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+    }
+    @ExceptionHandler(CustomerExistException.class)
+    public ResponseEntity<Error> handleCustomerExistException(CustomerExistException ce){
+        Error error = new Error();
+        error.errorCode(409);
+        error.errorMessage(ce.getMessage());
+        return new ResponseEntity<>(error,HttpStatus.CONFLICT);
     }
 }
