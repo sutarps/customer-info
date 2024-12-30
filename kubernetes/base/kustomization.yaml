@@ -5,6 +5,5 @@ commonLabels:
   app: customer-info-service
 
 resources:
-  - deployment.yaml
   - service.yaml
   - ingress.yaml
