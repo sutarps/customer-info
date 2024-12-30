@@ -65,11 +65,19 @@ public class CustomerService {
                 }).collect(Collectors.toList());
     }
     public List<org.openapitools.model.ContactDetails> getContacts(Long customerId){
-        Iterator<ContactDetails> contactDetailsList = contactsRepo.findByCustomerId(customerId).stream().iterator();
+        Optional<List<ContactDetails>> contactDetailsList = contactsRepo.findByCustomerId(customerId);
         List<org.openapitools.model.ContactDetails> contactDetails = new ArrayList<>();
-        while(contactDetailsList.hasNext()){
-            contactDetails.add(new ContactDetailsDTO(contactDetailsList.next()).toContactDetails());
-        }
+        if(contactDetailsList.isEmpty())
+            return contactDetails;
+        List<ContactDetailsDTO> contactDetailsDTOList = new ArrayList<>();
+        contactDetailsDTOList = contactDetailsList.get().stream()
+                .map(contact -> {
+                    return new ContactDetailsDTO(contact);
+                })
+                .collect(Collectors.toList());
+        contactDetails = contactDetailsDTOList.stream().map(c->{
+            return c.toContactDetails();
+        }).collect(Collectors.toList());
         return contactDetails;
     }
 }
