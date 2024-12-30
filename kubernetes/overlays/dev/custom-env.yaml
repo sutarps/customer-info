@@ -24,7 +24,7 @@ spec:
               memory: 512Mi
           readinessProbe:
             httpGet:
-                path: /heath
+                path: /heathz
                 port: 8080
                 scheme: HTTP
             initialDelaySeconds: 60
@@ -35,7 +35,7 @@ spec:
           terminationMessagePath: /dev/termination-log
           livenessProbe:
             httpGet:
-              path: /actuator/health
+              path: /health
               port: 8080
               scheme: HTTP
             initialDelaySeconds: 120
