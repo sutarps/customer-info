@@ -1,6 +1,8 @@
 package com.travellers.customerinfo.customer_info.service;
 
+import com.travellers.customerinfo.customer_info.dbmodel.Address;
 import com.travellers.customerinfo.customer_info.dbmodel.ContactDetails;
+import com.travellers.customerinfo.customer_info.dto.AddressDTO;
 import com.travellers.customerinfo.customer_info.dto.ContactDetailsDTO;
 import com.travellers.customerinfo.customer_info.dto.CustomerDTO;
 import com.travellers.customerinfo.customer_info.exception.exceptions.CustomerExistException;
@@ -52,7 +54,9 @@ public class CustomerService {
          List<org.openapitools.model.Customer> customerList = new ArrayList<>();
          while(customerIterable.hasNext()){
              Customer customer = customerIterable.next();
-             customerList.add(new CustomerDTO(customer).toOpenAPIcustomer().contactDetails(getContacts(customer.customerId())));
+             customerList.add(new CustomerDTO(customer).toOpenAPIcustomer()
+                     .contactDetails(getContacts(customer.customerId()))
+                     .addresses(getAddresses(customer.customerId())));
          }
          return customerList;
     }
@@ -79,5 +83,29 @@ public class CustomerService {
             return c.toContactDetails();
         }).collect(Collectors.toList());
         return contactDetails;
+    }
+    public List<org.openapitools.model.Address> createAddress(List<AddressDTO> addressDTOList){
+        return addressDTOList.stream()
+                .map(addressDTO -> {
+                    Address address = addressDTO.toDbAddress();
+                    address = addressRepo.save(address);
+                    return new AddressDTO(address).toAddress();
+                }).collect(Collectors.toList());
+    }
+    public List<org.openapitools.model.Address> getAddresses(Long custoerId){
+        Optional<List<Address>> addressList = addressRepo.findByCustomerId(custoerId);
+        List<org.openapitools.model.Address> addresses = new ArrayList<>();
+        if(addressList.isEmpty())
+            return addresses;
+        List<AddressDTO> addressDTOList = new ArrayList<>();
+        addressDTOList = addressList.get().stream()
+                .map(address -> {
+                    return new AddressDTO(address);
+                }).collect(Collectors.toList());
+        addresses = addressDTOList.stream()
+                .map(addr -> {
+                    return addr.toAddress();
+                }).collect(Collectors.toList());
+        return addresses;
     }
 }

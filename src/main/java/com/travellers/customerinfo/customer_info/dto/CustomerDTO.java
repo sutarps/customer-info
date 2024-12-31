@@ -72,6 +72,7 @@ public class CustomerDTO {
         newCustomer.email(this.email);
         newCustomer.createAt(this.createdAt.atOffset(ZoneOffset.UTC));
         newCustomer.updatedAt(this.updatedAt.atOffset(ZoneOffset.UTC));
+        newCustomer.phone(this.phone);
         return newCustomer;
     }
 

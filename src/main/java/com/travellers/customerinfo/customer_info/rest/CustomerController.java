@@ -1,11 +1,13 @@
 package com.travellers.customerinfo.customer_info.rest;
 
 
+import com.travellers.customerinfo.customer_info.dto.AddressDTO;
 import com.travellers.customerinfo.customer_info.dto.ContactDetailsDTO;
 import com.travellers.customerinfo.customer_info.dto.CustomerDTO;
 import com.travellers.customerinfo.customer_info.exception.exceptions.NotFoundException;
 import com.travellers.customerinfo.customer_info.service.CustomerService;
 import org.openapitools.api.CustomersApi;
+import org.openapitools.model.Address;
 import org.openapitools.model.ContactDetails;
 import org.openapitools.model.Customer;
 
@@ -44,8 +46,19 @@ public class CustomerController implements CustomersApi {
                     .collect(Collectors.toList());
             contacts = customerService.createContact(contactDetailsDTOList);
         }
+        List<AddressDTO> addressDTOList = new ArrayList<>();
+        List<Address> addresses = new ArrayList<>();
+        if (!customer.getAddresses().isEmpty()) {
+            addressDTOList = customer.getAddresses().stream()
+                    .map(address -> {
+                        AddressDTO addressDTO = new AddressDTO(address);
+                        addressDTO.setCustomerId(newCust.customerId());
+                        return addressDTO;
+                    }).collect(Collectors.toList());
+            addresses = customerService.createAddress(addressDTOList);
+        }
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(new CustomerDTO(newCust).toOpenAPIcustomer().contactDetails(contacts));
+        return ResponseEntity.status(HttpStatus.CREATED).body(new CustomerDTO(newCust).toOpenAPIcustomer().contactDetails(contacts).addresses(addresses));
     }
 
     @Override
@@ -72,7 +85,9 @@ public class CustomerController implements CustomersApi {
             throw new NotFoundException("Customer not found");
         }
         logger.info("Customer found {}",customerId);
-        return ResponseEntity.status(HttpStatus.OK).body(new CustomerDTO(customer.get()).toOpenAPIcustomer().contactDetails(customerService.getContacts(customerId)));
+        return ResponseEntity.status(HttpStatus.OK).body(new CustomerDTO(customer.get()).toOpenAPIcustomer()
+                .contactDetails(customerService.getContacts(customerId))
+                .addresses(customerService.getAddresses(customerId)));
     }
 
     @Override

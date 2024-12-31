@@ -179,7 +179,8 @@ components:
             - home
             - office
         customerId:
-          type: string
+          type: integer
+          format: int64
           description: Customer Id
         houseNo:
           type: string

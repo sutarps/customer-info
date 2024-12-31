@@ -1,6 +1,6 @@
 package com.travellers.customerinfo.customer_info.repo;
 
-import org.openapitools.model.Address;
+import com.travellers.customerinfo.customer_info.dbmodel.Address;
 import org.springframework.data.repository.CrudRepository;
 
 
