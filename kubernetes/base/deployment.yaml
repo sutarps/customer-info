@@ -12,7 +12,23 @@ spec:
     metadata:
       labels:
         app: customer-info
+      annotations:
+        instrumentation.opentelemetry.io/inject-java: "true"
     spec:
       hostNetwork: false
       restartPolicy: Always
       terminationGracePeriodSeconds: 30
+      livenessProbe:
+        httpGet:
+          path: /healthz
+          port: 8080
+          initialDelaySeconds: 120
+          periodSeconds: 10
+      readinessProbe:
+        httpGet:
+          path: /readyz
+          port: 8080
+          initialDelaySeconds: 90
+          periodSeconds: 10
+
+
